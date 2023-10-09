@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --off-white: 254 255 240;
+    --0range: 244 63 8;
+    --b1ack: 16 20 2;
+    --font-sans: 'Helvetica Neue';
+    --font-display: 'Switzer-Variable';
+
+    --wrapper-max: theme(spacing.224);
+    --wrapper-px: theme(spacing.4);
+
+    @media (width >= theme(screens[md])) {
+      --wrapper-px: theme(spacing.12);
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  .orange-disc {
+    list-style: none;
+
+    > li {
+
+      &::before {
+        
+        color: rgb(var(--0range) / 1);
+        display: inline-block;
+        content: '\2022';
+        font-size: theme(fontSize.2xl);
+        font-weight: bold;
+        margin-inline-end: theme(spacing.2);
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+@layer utilities {
+  .balance {
+    text-wrap: balance;
+  }
+
+  .pretty {
+    text-wrap: pretty;
+  }
+
+  .pause {
+    animation-play-state: paused;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .nice-scrollbar {
+    scrollbar-color: rgb(var(--0range) / 1) rgb(var(--off-white) / 1);
+    scrollbar-width: thin;
+  }
+
+  .nice-scrollbar::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+  }
+
+  .nice-scrollbar::-webkit-scrollbar-track {
+    background-color: rgb(var(--off-white) / 1);
+  }
+
+  .nice-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--0range) / 1);
+    border-radius: 9999px;
+    border: 1px solid rgb(var(--off-white) / 1);
+  }
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Helvetica Neue';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/assets/fonts/HelveticaNeue.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Helvetica Neue';
+  font-style: italic;
+  font-weight: 400;
+  src: url('/assets/fonts/HelveticaNeueItalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Helvetica Neue';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/assets/fonts/HelveticaNeueMedium.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Helvetica Neue';
+  font-style: italic;
+  font-weight: 500;
+  src: url('/assets/fonts/HelveticaNeueMediumItalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Helvetica Neue';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/assets/fonts/HelveticaNeueBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Helvetica Neue';
+  font-style: italic;
+  font-weight: 700;
+  src: url('/assets/fonts/HelveticaNeueBoldItalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Helvetica Neue';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/assets/fonts/HelveticaNeueBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Switzer-Variable';
+  src:
+    url('/assets/fonts/Switzer-Variable.woff2') format('woff2'),
+    url('/assets/fonts/Switzer-Variable.woff') format('woff');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Switzer-Variable';
+  src:
+    url('/assets/fonts/Switzer-VariableItalic.woff2') format('woff2'),
+    url('/assets/fonts/Switzer-VariableItalic.woff') format('woff');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: italic;
+}

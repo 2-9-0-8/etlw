@@ -1,0 +1,43 @@
+---
+import { CONTACT_EMAIL, CONTACT_NUMBER, INSTAGRAM, PODCAST_NAME } from '@/lib/config'
+import type { Icon as $Icon } from '@/lib/types'
+
+import ContentWrapper from '@/components/content-wrapper.astro'
+import Heading from '@/components/heading.astro'
+import Icon from '@/components/icon.astro'
+import YSection from '@/components/y-section.astro'
+
+const icons: Array<{ name: $Icon; href: string }> = [
+  { name: 'youtube_rounded', href: '#' },
+  { name: 'instagram_rounded', href: '#' },
+  { name: 'facebook_rounded', href: '#' },
+  { name: 'twitter_rounded', href: '#' },
+]
+const year = new Date().getFullYear()
+---
+
+<footer class="bg-0range">
+  <ContentWrapper>
+    <YSection size="lg" class="text-center">
+      <Heading level={3}>Contact</Heading>
+      <ul class="text-lg font-bold uppercase leading-tight xs:text-xl md:text-2xl">
+        <li><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></li>
+        <li>Todd Speakman: <a href={`tel:${CONTACT_NUMBER}`}>{CONTACT_NUMBER}</a></li>
+        <li><a href={`https://www.instagram.com/${INSTAGRAM}`}>@{INSTAGRAM}</a></li>
+      </ul>
+
+      <ul class="mt-8 flex items-center justify-center gap-3">
+        {
+          icons.map(({ name, href }) => (
+            <li>
+              <a {href}>
+                <Icon {name} width={36} height={36} />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-6 text-sm font-medium">Copyright {year} - {PODCAST_NAME}</p>
+    </YSection>
+  </ContentWrapper>
+</footer>

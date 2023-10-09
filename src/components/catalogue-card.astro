@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets'
+
+import type { Episode } from '@/lib/types'
+import { cn, getEpisodePositionInSeries } from '@/lib/utils'
+
+export type Props = {
+  episode: Episode
+  class?: string
+  research?: boolean
+  music?: boolean
+}
+
+const { episode, class: className, research, music } = Astro.props
+const { title, series, quotes, coverImage, slug } = episode
+const [{ quote }] = quotes
+const { url: coverImageUrl, width, height } = coverImage
+
+const number = await getEpisodePositionInSeries(episode)
+
+const cloudinaryParams = 'c_fill,h_300,w_300,f_auto,q_auto'
+const cloudinaryUrl = coverImageUrl.replace('upload/', `upload/${cloudinaryParams}/`)
+---
+
+<block-link>
+  <div
+    class="group relative aspect-square overflow-hidden rounded-xl border-2 border-b1ack bg-contain bg-center"
+    style={`background-image: url('${cloudinaryUrl}');`}>
+    <div class="absolute inset-0 rounded-[inherit] bg-0range mix-blend-color" aria-hidden="true">
+    </div>
+
+    <div class="isolate flex h-full flex-col justify-between gap-2 py-4 @container">
+      <div class="px-4">
+        {research && <div class="text-xs">Research</div>}
+        <p class="@xs:text-medium text-sm font-medium @sm:text-xl">
+          Series {series} Episode {number}
+        </p>
+      </div>
+
+      <div>
+        <div class="flex flex-nowrap transition-transform group-hover:-translate-x-full">
+          <h2
+            class="text-md mt-auto w-full shrink-0 self-end px-4 font-display font-extrabold uppercase @3xs:text-lg @2xs:text-2xl @xs:text-3xl @sm:text-4xl">
+            {title}
+          </h2>
+          <p
+            class="mt-auto w-full shrink-0 self-start px-4 text-xs font-medium @3xs:text-xs @2xs:text-sm">
+            {quote}
+          </p>
+        </div>
+        <a
+          class="sr-only block px-4 text-xs focus-visible:not-sr-only"
+          href={`/${research ? 'research' : 'episodes'}/${slug.current}`}>
+          View series {series} episode {number}
+          {research ? 'research' : 'episode'}
+        </a>
+      </div>
+    </div>
+  </div>
+</block-link>
+
+<script>
+  import '@/wc/block-link.js'
+</script>

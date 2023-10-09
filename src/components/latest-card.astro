@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets'
+
+import type { Episode } from '@/lib/types'
+import { cn, getEpisodePositionInSeries } from '@/lib/utils'
+
+import Heading from '@/components/heading.astro'
+
+type Props = {
+  episode: Episode
+  class?: string
+}
+
+const { episode, class: className } = Astro.props
+const { title, series, quotes, coverImage, slug } = episode
+const [{ quote }] = quotes
+const { url: coverImageUrl, width, height, alt } = coverImage
+
+const number = await getEpisodePositionInSeries(episode)
+
+const cloudinaryParams = 'c_fill,h_600,w_600,f_auto,q_auto'
+const cloudinaryUrl = coverImageUrl.replace('upload/', `upload/${cloudinaryParams}/`)
+
+const parsedTitle = `
+    ${title
+      .split(' ')
+      .map(word => (word === 'with' ? '<span class="text-base">with</span>' : word))
+      .join(' ')}
+`
+---
+
+<block-link>
+  <div class={cn('flex flex-col gap-3 rounded-3xl border-2 border-b1ack p-4', className)}>
+    <header class="border-b-2 border-b1ack pb-2">
+      <p>
+        <span class="text-xs font-bold md:text-sm">Series {series}</span><br />
+        <span
+          class="font-display text-lg font-extrabold uppercase leading-tight text-0range md:text-xl md:leading-tight">
+          Episode No. {number}
+        </span>
+      </p>
+    </header>
+
+    <div>
+      <Heading level={3} set:html={parsedTitle} />
+      <Image src={cloudinaryUrl} {width} {height} {alt} class="my-3 h-auto w-full rounded-lg" />
+      <p class="font-medium">
+        {quote}
+      </p>
+    </div>
+
+    <a
+      href={`/episodes/${slug.current}`}
+      class="sr-only text-sm font-medium text-0range focus-visible:not-sr-only">
+      View episode
+    </a>
+  </div>
+</block-link>
+
+<script>
+  import '@/wc/block-link.js'
+</script>

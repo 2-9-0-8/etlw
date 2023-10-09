@@ -1,0 +1,23 @@
+---
+import type { Episode } from '@/lib/types'
+import { getEpisodes } from '@/lib/utils'
+
+import Layout from '@/layouts/layout.astro'
+import CatalogueCardList from '@/components/catalogue-card-list.astro'
+import ContentWrapper from '@/components/content-wrapper.astro'
+import YSection from '@/components/y-section.astro'
+
+const episodes = await getEpisodes()
+---
+
+<Layout title="Research" class="flex flex-col">
+  <h1 class="sr-only">All research</h1>
+
+  <div class="grow bg-b1ack-textured text-off-white">
+    <ContentWrapper>
+      <YSection size="md">
+        <CatalogueCardList {episodes} research />
+      </YSection>
+    </ContentWrapper>
+  </div>
+</Layout>

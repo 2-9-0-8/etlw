@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets'
+
+import { cn } from '@/lib/utils'
+
+import BrandAsset from '@/components/brand-asset.astro'
+import ContentWrapper from '@/components/content-wrapper.astro'
+import Nav from '@/components/nav.astro'
+import YSection from '@/components/y-section.astro'
+import record from '@/assets/record.png'
+
+const { pathname } = Astro.url
+
+const expanded = pathname === '/'
+const animProps = {
+  old: {
+    name: 'slide-up',
+    duration: '500ms',
+    easing: 'linear',
+    fillMode: 'forwards',
+  },
+  new: {
+    name: 'slide-down',
+    duration: '500ms',
+    easing: 'linear',
+    fillMode: 'forwards',
+  },
+}
+
+const recordAnimation = {
+  forwards: animProps,
+  backwards: animProps,
+}
+---
+
+<ContentWrapper>
+  <header>
+    <Image
+      transition:animate={recordAnimation}
+      transition:name="record"
+      src={record}
+      alt="Record"
+      width={140}
+      height={140}
+      aria-hidden={expanded ? 'false' : 'true'}
+      class={cn('mx-auto -mt-[70px] block', expanded ? '-mt-[70px]' : '-mt-[140px]')}
+    />
+
+    <div class="flex flex-col items-center pb-6 pt-4" transition:name="logo">
+      <a href="/">
+        <BrandAsset
+          name="black + orange logo"
+          title="ETLW Logo"
+          class={cn(expanded ? 'w-[220px] sm:w-[320px]' : 'w-[120px] sm:w-[220px]')}
+        />
+      </a>
+    </div>
+  </header>
+</ContentWrapper>
+
+<style is:global>
+  @keyframes slide-up {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-200%);
+    }
+  }
+
+  @keyframes slide-down {
+    0% {
+      transform: translateY(-200%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+</style>

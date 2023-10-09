@@ -1,0 +1,126 @@
+---
+import { PortableText } from 'astro-portabletext'
+import { Image } from 'astro:assets'
+
+import type { Episode } from '@/lib/types'
+import { getEpisodeBySlug, getEpisodePositionInSeries } from '@/lib/utils'
+
+import Layout from '@/layouts/layout.astro'
+import ListenNow from '@/components/listen-now'
+import ListenNowOptions from '@/components/listen-now-options.astro'
+import ContentWrapper from '@/components/content-wrapper.astro'
+import YSection from '@/components/y-section.astro'
+import Heading from '@/components/heading.astro'
+
+const { slug } = Astro.params
+
+if (!slug) {
+  return Astro.redirect('/404')
+}
+
+const episode: Episode = await getEpisodeBySlug(slug)
+
+if (!episode) {
+  return Astro.redirect('/404')
+}
+
+const { title, research, series, streams, coverImage } = episode
+const { url: coverImageUrl, width, height, alt } = coverImage
+const number = await getEpisodePositionInSeries(episode)
+---
+
+<Layout title={`Research: S${series} E${number} - ${title}`} class="flex flex-col">
+  <div class="bg-b1ack-textured text-off-white">
+    <ContentWrapper>
+      <YSection size="md">
+        <Heading level={1} class="text-center">
+          <span class="mb-2 text-lg font-extrabold font-display uppercase text-0range md:text-2xl">
+            Series {series} - Episode {number}
+          </span><br />
+
+          Research
+        </Heading>
+      </YSection>
+
+      <Image src={coverImageUrl} {width} {height} {alt} class="h-auto w-full" />
+    </ContentWrapper>
+  </div>
+
+  <ListenNow translateHalf="top" anchor="bottom" client:idle>
+    <ListenNowOptions {streams} />
+  </ListenNow>
+
+  <ContentWrapper>
+    <YSection size="lg">
+      <div class="block-text">
+        <PortableText value={research}  />
+      </div>
+    </YSection>
+  </ContentWrapper>
+</Layout>
+
+<style is:global>
+  @import 'tailwindcss/components';
+
+  @layer components {
+    .block-text p {
+      font-weight: 500;
+      margin-inline: auto;
+
+      @apply prose max-w-none text-b1ack;
+
+      @media (width >= theme(screens[md])) {
+        font-size: theme(fontSize.lg)
+      }
+    }
+
+    .block-text :is(h1, h2, h3, h4, h5) {
+      color: rgb(var(--0range) / 1);
+      font-family: var(--font-display);
+      font-size: theme(fontSize.2xl);
+      font-weight: 800;
+      line-height: theme(lineHeight.tight);
+      margin-block-end: theme(spacing.4);
+      text-transform: uppercase;
+
+      @media (width >= theme(screens[md])) {
+        font-size: theme(fontSize.3xl);
+        margin-block-end: theme(spacing.4);
+      }
+    }
+
+    .block-text p + :is(h1, h2, h3, h4, h5) {
+      margin-block-start: theme(spacing.10);
+    }
+
+    .block-text ul {
+      list-style: none;
+
+      > li {
+        font-weight: 500;
+
+        &::before {
+          color: rgb(var(--0range) / 1); 
+          display: inline-block; 
+          content: '\2022'; 
+          font-size: theme(fontSize.2xl);
+          font-weight: bold; 
+          margin-inline-end: theme(spacing.2);
+          vertical-align: middle;
+        }
+      }
+    }
+
+    .block-text :is(ol, ul) + p {
+      margin-block-start: theme(spacing.6);
+    }
+
+    .block-text a {
+      color: rgb(var(--0range) / 1);
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+</style>

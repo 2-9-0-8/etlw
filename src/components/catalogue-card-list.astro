@@ -1,0 +1,16 @@
+---
+import type { Episode } from '@/lib/types'
+
+import CatalogueCard from '@/components/catalogue-card.astro'
+
+type Props = {
+  episodes: Array<Episode>
+  research?: boolean
+}
+
+const { episodes, research } = Astro.props
+---
+
+<div class="grid xs:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
+  {episodes.map(episode => <CatalogueCard {episode} {research} />)}
+</div>

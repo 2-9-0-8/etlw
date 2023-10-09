@@ -1,0 +1,19 @@
+---
+import { cn } from '@/lib/utils'
+
+type Props = {
+  class?: string
+  expand?: boolean
+}
+
+const { expand, class: className } = Astro.props
+---
+
+<div
+  class={cn(
+    'mx-auto px-[var(--wrapper-px)]',
+    !expand ? 'max-w-[var(--wrapper-max)]' : 'max-w-[calc(var(--wrapper-max)_*_1.5)]',
+    className
+  )}>
+  <slot />
+</div>

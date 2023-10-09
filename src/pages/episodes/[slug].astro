@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets'
+
+import type { Episode } from '@/lib/types'
+import { getEpisodeBySlug, getEpisodePositionInSeries } from '@/lib/utils'
+
+import Layout from '@/layouts/layout.astro'
+import Button from '@/components/button'
+import ContentWrapper from '@/components/content-wrapper.astro'
+import YSection from '@/components/y-section.astro'
+import Heading from '@/components/heading.astro'
+import mirtaFratnik from '@/assets/mirta-fratnik.jpg'
+import ListenNow from '@/components/listen-now'
+import ListenNowOptions from '@/components/listen-now-options.astro'
+
+const { slug } = Astro.params
+
+if (!slug) {
+  return Astro.redirect('/404')
+}
+
+const episode: Episode = await getEpisodeBySlug(slug)
+
+if (!episode) {
+  return Astro.redirect('/404')
+}
+
+const { title, quotes, series, streams, coverImage } = episode
+const [_, ...restQuotes] = quotes
+const { url: coverImageUrl, width, height, alt } = coverImage
+const number = await getEpisodePositionInSeries(episode)
+---
+
+<Layout title={`Episode: S${series} E${number} - ${title}`} class="flex flex-col">
+  <div class="bg-b1ack-textured text-off-white">
+    <ContentWrapper>
+      <YSection size="md">
+        <Heading level={1} class="text-center">
+          <span class="mb-2 text-lg font-extrabold font-display uppercase text-0range md:text-2xl">
+            Series {series} - Episode {number}
+          </span><br />
+
+          {title}
+        </Heading>
+      </YSection>
+
+      <Image src={coverImageUrl} {width} {height} {alt} class="h-auto w-full" />
+    </ContentWrapper>
+  </div>
+
+  <ListenNow translateHalf="top" anchor="bottom" client:idle>
+    <ListenNowOptions {streams} />
+  </ListenNow>
+
+  <ContentWrapper>
+    <YSection size="lg" class="flex flex-col gap-4">
+      {
+        restQuotes.map(({ quote, author }) => (
+          <blockquote class="text-lg max-w-prose mx-auto text-center md:text-2xl">
+            <p class="mb-4 font-medium md:leading-10">{quote}</p>
+            <footer class="font-bold">- {author}</footer>
+          </blockquote>
+        ))
+      }
+    </YSection>
+  </ContentWrapper>
+
+  <Button as="a" href={`/research/${slug}`} translateHalf="bottom">Research</Button>
+
+  <div class="bg-b1ack-textured text-off-white">
+    <ContentWrapper>
+      <Image src={mirtaFratnik} alt="Image of a record shop" class="h-auto w-full" />
+    </ContentWrapper>
+  </div>  
+</Layout>

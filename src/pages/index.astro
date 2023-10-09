@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets'
+
+import { DESCRIPTION, PODCAST_NAME } from '@/lib/config'
+import { getLatestEpisode } from '@/lib/utils'
+
+import Layout from '@/layouts/layout.astro'
+import ContentWrapper from '@/components/content-wrapper.astro'
+import Heading from '@/components/heading.astro'
+import LatestCard from '@/components/latest-card.astro'
+import YSection from '@/components/y-section.astro'
+import Headphones from '@/assets/headphones.jpg'
+import RecordShop from '@/assets/record-shop.jpg'
+
+export const prerender = true
+
+const stringToReplace = 'multi content endevour'
+const welcomeMessage = DESCRIPTION.replace(
+  stringToReplace,
+  `<span class="text-0range uppercase font-display font-extrabold">${stringToReplace}</span>`
+)
+
+const episode = await getLatestEpisode()
+---
+
+<Layout title="Home">
+  <h1 class="sr-only">Welcome to {PODCAST_NAME}</h1>
+
+  <div class="bg-b1ack-textured">
+    <ContentWrapper>
+      <YSection size="lg">
+        <p
+          class="text-center text-2xl font-bold text-off-white md:text-4xl"
+          set:html={welcomeMessage}
+        />
+      </YSection>
+    </ContentWrapper>
+  </div>
+
+  <ContentWrapper expand>
+    <YSection size="lg">
+      <Heading level={2} class="text-center text-0range">Latest Episode</Heading>
+      
+      <div class="md:grid md:grid-cols-[1fr,_400px,_1fr] lg:grid-cols-[1fr,_500px,_1fr] md:gap-4">
+        <Image src={RecordShop} alt="Record shop" class="h-auto w-full rounded-3xl hidden md:block self-stretch object-cover" />
+        <LatestCard {episode} />
+        <Image src={Headphones} alt="Headphones" class="h-auto w-full rounded-3xl mt-6 md:mt-0 self-stretch object-cover" />
+      </div>
+    </YSection>
+  </ContentWrapper>
+</Layout>

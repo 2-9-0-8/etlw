@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets'
+
+import type { Episode } from '@/lib/types'
+import { cn, getEpisodePositionInSeries } from '@/lib/utils'
+
+import Heading from '@/components/heading.astro'
+import ListenNowOptions from '@/components/listen-now-options.astro'
+
+type Props = {
+  episode: Episode
+  class?: string
+}
+
+const { episode, class: className } = Astro.props
+const { streams, coverImage, series } = episode
+const { url: coverImageUrl, alt } = coverImage
+
+const cloudinaryParams = 'c_fill,h_300,w_300,f_auto,q_auto'
+const cloudinaryUrl = coverImageUrl.replace('upload/', `upload/${cloudinaryParams}/`)
+
+const number = await getEpisodePositionInSeries(episode)
+---
+
+<div class={cn('flex flex-col items-center justify-center', className)}>
+  <Image
+    src={cloudinaryUrl}
+    {alt}
+    width="160"
+    height="160"
+    class="mb-4 aspect-square rounded-[50%]"
+  />
+  <Heading level={2} styleAsLevel={6} class="mb-4 text-center font-sans normal-case">
+    Series {series} Episode {number}
+  </Heading>
+  <ListenNowOptions {streams} theme="0range" />
+</div>

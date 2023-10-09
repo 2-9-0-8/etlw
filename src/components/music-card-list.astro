@@ -1,0 +1,15 @@
+---
+import type { Episode } from '@/lib/types'
+
+import MusicCard from '@/components/music-card.astro'
+
+type Props = {
+  episodes: Array<Episode>
+}
+
+const { episodes } = Astro.props
+---
+
+<div class="grid xs:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
+  {episodes.map(episode => <MusicCard {episode} />)}
+</div>
