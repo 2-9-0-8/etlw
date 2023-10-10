@@ -6,11 +6,11 @@ import type { Episode } from '@/lib/types'
 import { getEpisodeBySlug, getEpisodePositionInSeries } from '@/lib/utils'
 
 import Layout from '@/layouts/layout.astro'
+import ContentWrapper from '@/components/content-wrapper.astro'
+import Heading from '@/components/heading.astro'
 import ListenNow from '@/components/listen-now'
 import ListenNowOptions from '@/components/listen-now-options.astro'
-import ContentWrapper from '@/components/content-wrapper.astro'
 import YSection from '@/components/y-section.astro'
-import Heading from '@/components/heading.astro'
 
 const { slug } = Astro.params
 
@@ -24,8 +24,8 @@ if (!episode) {
   return Astro.redirect('/404')
 }
 
-const { title, research, series, streams, coverImage } = episode
-const { url: coverImageUrl, width, height, alt } = coverImage
+const { title, research, series, streams, primaryEpisodeImage, secondaryEpisodeImage } = episode
+const { url: coverImageUrl, width, height, alt } = secondaryEpisodeImage || primaryEpisodeImage
 const number = await getEpisodePositionInSeries(episode)
 ---
 
@@ -34,11 +34,11 @@ const number = await getEpisodePositionInSeries(episode)
     <ContentWrapper>
       <YSection size="md">
         <Heading level={1} class="text-center">
-          <span class="mb-2 text-lg font-extrabold font-display uppercase text-0range md:text-2xl">
+          <span class="mb-2 font-display text-lg font-extrabold uppercase text-0range md:text-2xl">
             Series {series} - Episode {number}
           </span><br />
 
-          Research
+           Research
         </Heading>
       </YSection>
 
@@ -53,7 +53,7 @@ const number = await getEpisodePositionInSeries(episode)
   <ContentWrapper>
     <YSection size="lg">
       <div class="block-text">
-        <PortableText value={research}  />
+        <PortableText value={research} />
       </div>
     </YSection>
   </ContentWrapper>
@@ -70,7 +70,7 @@ const number = await getEpisodePositionInSeries(episode)
       @apply prose max-w-none text-b1ack;
 
       @media (width >= theme(screens[md])) {
-        font-size: theme(fontSize.lg)
+        font-size: theme(fontSize.lg);
       }
     }
 
@@ -100,11 +100,11 @@ const number = await getEpisodePositionInSeries(episode)
         font-weight: 500;
 
         &::before {
-          color: rgb(var(--0range) / 1); 
-          display: inline-block; 
-          content: '\2022'; 
+          color: rgb(var(--0range) / 1);
+          display: inline-block;
+          content: '\2022';
           font-size: theme(fontSize.2xl);
-          font-weight: bold; 
+          font-weight: bold;
           margin-inline-end: theme(spacing.2);
           vertical-align: middle;
         }

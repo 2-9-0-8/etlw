@@ -23,12 +23,19 @@ export type Episode = {
     current: string
     _type: string
   }
-  coverImage: {
+  primaryEpisodeImage: {
     width: number
     height: number
     url: string
     alt: string
   }
+  secondaryEpisodeImage: {
+    width: number
+    height: number
+    url: string
+    alt: string
+  }
+  introduction: string
   streams: Array<{
     platform: string
     url: string

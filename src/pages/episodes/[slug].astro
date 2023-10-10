@@ -7,11 +7,11 @@ import { getEpisodeBySlug, getEpisodePositionInSeries } from '@/lib/utils'
 import Layout from '@/layouts/layout.astro'
 import Button from '@/components/button'
 import ContentWrapper from '@/components/content-wrapper.astro'
-import YSection from '@/components/y-section.astro'
 import Heading from '@/components/heading.astro'
-import mirtaFratnik from '@/assets/mirta-fratnik.jpg'
 import ListenNow from '@/components/listen-now'
 import ListenNowOptions from '@/components/listen-now-options.astro'
+import YSection from '@/components/y-section.astro'
+import studio from '@/assets/studio.jpg'
 
 const { slug } = Astro.params
 
@@ -25,9 +25,9 @@ if (!episode) {
   return Astro.redirect('/404')
 }
 
-const { title, quotes, series, streams, coverImage } = episode
+const { title, quotes, series, streams, primaryEpisodeImage, introduction } = episode
 const [_, ...restQuotes] = quotes
-const { url: coverImageUrl, width, height, alt } = coverImage
+const { url: coverImageUrl, width, height, alt } = primaryEpisodeImage
 const number = await getEpisodePositionInSeries(episode)
 ---
 
@@ -36,12 +36,14 @@ const number = await getEpisodePositionInSeries(episode)
     <ContentWrapper>
       <YSection size="md">
         <Heading level={1} class="text-center">
-          <span class="mb-2 text-lg font-extrabold font-display uppercase text-0range md:text-2xl">
+          <span class="mb-2 font-display text-lg font-extrabold uppercase text-0range md:text-2xl">
             Series {series} - Episode {number}
           </span><br />
 
           {title}
         </Heading>
+
+        <p class="font-medium text-md mx-auto md:text-md prose text-off-white text-center pretty">{introduction}</p>
       </YSection>
 
       <Image src={coverImageUrl} {width} {height} {alt} class="h-auto w-full" />
@@ -56,8 +58,8 @@ const number = await getEpisodePositionInSeries(episode)
     <YSection size="lg" class="flex flex-col gap-4">
       {
         restQuotes.map(({ quote, author }) => (
-          <blockquote class="text-lg max-w-prose mx-auto text-center md:text-2xl">
-            <p class="mb-4 font-medium md:leading-10">{quote}</p>
+          <blockquote class="mx-auto max-w-prose text-center text-lg md:text-2xl">
+            <span class="block mb-4 font-medium md:leading-10">&ldquo;{quote}&rdquo;</span>
             <footer class="font-bold">- {author}</footer>
           </blockquote>
         ))
@@ -69,7 +71,7 @@ const number = await getEpisodePositionInSeries(episode)
 
   <div class="bg-b1ack-textured text-off-white">
     <ContentWrapper>
-      <Image src={mirtaFratnik} alt="Image of a record shop" class="h-auto w-full" />
+      <Image src={studio} alt="Image of the record studio" class="h-auto w-full" />
     </ContentWrapper>
-  </div>  
+  </div>
 </Layout>

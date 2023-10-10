@@ -13,11 +13,11 @@ type Props = {
 }
 
 const { episode, class: className } = Astro.props
-const { streams, coverImage, series } = episode
-const { url: coverImageUrl, alt } = coverImage
+const { streams, primaryEpisodeImage, secondaryEpisodeImage, series } = episode
+const { url: imageUrl, alt } = secondaryEpisodeImage || primaryEpisodeImage
 
 const cloudinaryParams = 'c_fill,h_300,w_300,f_auto,q_auto'
-const cloudinaryUrl = coverImageUrl.replace('upload/', `upload/${cloudinaryParams}/`)
+const cloudinaryUrl = imageUrl.replace('upload/', `upload/${cloudinaryParams}/`)
 
 const number = await getEpisodePositionInSeries(episode)
 ---

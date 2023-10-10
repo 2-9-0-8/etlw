@@ -1,6 +1,4 @@
 ---
-import { Image } from 'astro:assets'
-
 import type { Episode } from '@/lib/types'
 import { cn, getEpisodePositionInSeries } from '@/lib/utils'
 
@@ -8,23 +6,25 @@ export type Props = {
   episode: Episode
   class?: string
   research?: boolean
-  music?: boolean
 }
 
-const { episode, class: className, research, music } = Astro.props
-const { title, series, quotes, coverImage, slug } = episode
+const { episode, class: className, research } = Astro.props
+const { title, series, quotes, primaryEpisodeImage, secondaryEpisodeImage, slug } = episode
 const [{ quote }] = quotes
-const { url: coverImageUrl, width, height } = coverImage
+const { url: imageUrl } = secondaryEpisodeImage || primaryEpisodeImage
 
 const number = await getEpisodePositionInSeries(episode)
 
 const cloudinaryParams = 'c_fill,h_300,w_300,f_auto,q_auto'
-const cloudinaryUrl = coverImageUrl.replace('upload/', `upload/${cloudinaryParams}/`)
+const cloudinaryUrl = imageUrl.replace('upload/', `upload/${cloudinaryParams}/`)
 ---
 
 <block-link>
   <div
-    class="group relative aspect-square overflow-hidden rounded-xl border-2 border-b1ack bg-contain bg-center"
+    class={cn(
+      'group relative aspect-square overflow-hidden rounded-xl border-2 border-b1ack bg-contain bg-center',
+      className
+    )}
     style={`background-image: url('${cloudinaryUrl}');`}>
     <div class="absolute inset-0 rounded-[inherit] bg-0range mix-blend-color" aria-hidden="true">
     </div>
@@ -43,10 +43,10 @@ const cloudinaryUrl = coverImageUrl.replace('upload/', `upload/${cloudinaryParam
             class="text-md mt-auto w-full shrink-0 self-end px-4 font-display font-extrabold uppercase @3xs:text-lg @2xs:text-2xl @xs:text-3xl @sm:text-4xl">
             {title}
           </h2>
-          <p
-            class="mt-auto w-full shrink-0 self-start px-4 text-xs font-medium @3xs:text-xs @2xs:text-sm">
-            {quote}
-          </p>
+          <blockquote
+            class="mt-auto w-full shrink-0 self-start px-4 text-xs font-medium italic @3xs:text-xs @2xs:text-sm">
+            &ldquo;{quote}&rdquo;
+          </blockquote>
         </div>
         <a
           class="sr-only block px-4 text-xs focus-visible:not-sr-only"

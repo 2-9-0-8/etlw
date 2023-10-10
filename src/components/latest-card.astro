@@ -12,14 +12,14 @@ type Props = {
 }
 
 const { episode, class: className } = Astro.props
-const { title, series, quotes, coverImage, slug } = episode
+const { title, series, quotes, primaryEpisodeImage, secondaryEpisodeImage, slug } = episode
 const [{ quote }] = quotes
-const { url: coverImageUrl, width, height, alt } = coverImage
+const { url: imageUrl, width, height, alt } = secondaryEpisodeImage || primaryEpisodeImage
 
 const number = await getEpisodePositionInSeries(episode)
 
 const cloudinaryParams = 'c_fill,h_600,w_600,f_auto,q_auto'
-const cloudinaryUrl = coverImageUrl.replace('upload/', `upload/${cloudinaryParams}/`)
+const cloudinaryUrl = imageUrl.replace('upload/', `upload/${cloudinaryParams}/`)
 
 const parsedTitle = `
     ${title
@@ -44,9 +44,9 @@ const parsedTitle = `
     <div>
       <Heading level={3} set:html={parsedTitle} />
       <Image src={cloudinaryUrl} {width} {height} {alt} class="my-3 h-auto w-full rounded-lg" />
-      <p class="font-medium">
-        {quote}
-      </p>
+      <blockquote class="font-medium italic">
+        &ldquo;{quote}&rdquo;
+      </blockquote>
     </div>
 
     <a

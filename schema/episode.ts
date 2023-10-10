@@ -33,8 +33,37 @@ export default {
       ],
     },
     {
-      name: 'coverImage',
-      title: 'Cover image',
+      name: 'primaryEpisodeImage',
+      title: 'Primary episode image',
+      description: 'This image will be the large image on the episode page. Image should be (ideally) 1344px x 898px. We will cut down the size down automatically for cards.',
+      type: 'object',
+      fields: [
+        {
+          name: 'url',
+          title: 'URL to image on Cloudinary',
+          type: 'url',
+        },
+        {
+          name: 'alt',
+          title: 'Alternative text',
+          type: 'string',
+        },
+        {
+          name: 'width',
+          title: 'Width',
+          type: 'number',
+        },
+        {
+          name: 'height',
+          title: 'Height',
+          type: 'number',
+        },
+      ],
+    },
+    {
+      name: 'secondaryEpisodeImage',
+      title: 'Secondary episode image',
+      description: 'This image will be used across all cards and on the research page. Image should be (ideally) 1344px x 898px. We will cut down the size down automatically for cards. If not provided, the primary episode image will be used.',
       type: 'object',
       fields: [
         {
@@ -85,6 +114,12 @@ export default {
           ],
         },
       ],
+    },
+    {
+      name: 'introduction',
+      title: 'Introduction',
+      description: 'This is the introduction text that will be displayed on the episode page.',
+      type: 'text',
     },
     {
       name: 'quotes',
