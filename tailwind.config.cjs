@@ -19,10 +19,6 @@ export default {
         'off-white': 'rgb(var(--off-white) / <alpha-value>)',
         '0range': 'rgb(var(--0range) / <alpha-value>)',
         b1ack: 'rgb(var(--b1ack) / <alpha-value>)',
-        'app-bg': {
-          light: 'rgb(var(--off-white) / <alpha-value>)',
-          DEFAULT: 'rgb(var(--off-white) / <alpha-value>)',
-        },
       },
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
@@ -39,9 +35,6 @@ export default {
         current: 'current=page',
       },
       backgroundImage: {
-        'b1ack-textured': "url('/assets/bgs/black-textured.png')",
-        '0range-textured': "url('/assets/bgs/orange-textured.png')",
-        'off-white-textured': "url('/assets/bgs/off-white-textured.png')",
         vinyl: "url('/assets/bgs/vinyl.png')",
       },
       spacing: {

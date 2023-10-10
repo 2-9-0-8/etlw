@@ -89,6 +89,30 @@
     border-radius: 9999px;
     border: 1px solid rgb(var(--off-white) / 1);
   }
+
+  .bg-off-white-textured {
+    background-image: url('/assets/bgs/off-white-textured.png');
+
+    @supports (background-image: url('foo.webp')) {
+      background-image: url('/assets/bgs/off-white-textured.webp');
+    }
+  }
+
+  .bg-0range-textured {
+    background-image: url('/assets/bgs/orange-textured.png');
+
+    @supports (background-image: url('foo.webp')) {
+      background-image: url('/assets/bgs/orange-textured.webp');
+    }
+  }
+
+  .bg-b1ack-textured {
+    background-image: url('/assets/bgs/black-textured.png');
+
+    @supports (background-image: url('foo.webp')) {
+      background-image: url('/assets/bgs/black-textured.webp');
+    }
+  }
 }
 
 @font-face {

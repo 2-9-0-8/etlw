@@ -40,7 +40,7 @@ export default function Nav({ pathname }: { pathname: string }) {
             <a
               href={href}
               className={cn(
-                'font-sans font-medium lowercase text-off-white aria-current:text-0range sm:text-lg scroll-mx-8 md:scroll-mx-24'
+                'scroll-mx-8 font-sans font-medium lowercase text-off-white aria-current:text-0range sm:text-lg md:scroll-mx-24'
               )}
               aria-current={
                 pathname === '/' && href === '/'
