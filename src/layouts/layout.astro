@@ -6,9 +6,12 @@ import { cn } from '@/lib/utils'
 
 import '@/styles/globals.css'
 
+import ContentWrapper from '@/components/content-wrapper.astro'
 import Footer from '@/components/footer.astro'
 import Header from '@/components/header.astro'
-import Nav from '@/components/nav.astro'
+import Nav from '@/components/nav'
+import Scrollable from '@/components/scrollable'
+import YSection from '@/components/y-section.astro'
 
 export type Props = {
   title: string
@@ -16,6 +19,7 @@ export type Props = {
 }
 
 const { title, class: className } = Astro.props
+const { pathname } = Astro.url
 ---
 
 <html lang="en" class="h-full" transition:animate="none">
@@ -23,10 +27,10 @@ const { title, class: className } = Astro.props
     <meta charset="UTF-8" />
     <meta name="description" content={DESCRIPTION} />
     <meta name="viewport" content="width=device-width" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">    
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
     <title>{title} - {SITE_NAME}</title>
 
@@ -34,7 +38,14 @@ const { title, class: className } = Astro.props
   </head>
   <body class="flex min-h-full flex-col bg-app-bg font-sans">
     <Header />
-    <Nav />
+
+    <YSection size="2xs" class="bg-b1ack-textured">
+      <Scrollable client:load fromTo="from-neutral-950 to-neutral-900/0">
+        <ContentWrapper>
+          <Nav client:load {pathname} />
+        </ContentWrapper>
+      </Scrollable>
+    </YSection>
 
     <main class={cn('grow', className)}>
       <slot />
