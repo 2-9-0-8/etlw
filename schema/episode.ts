@@ -35,7 +35,7 @@ export default {
     {
       name: 'primaryEpisodeImage',
       title: 'Primary episode image',
-      description: 'This image will be the large image on the episode page. Image should be (ideally) 1344px x 898px. We will cut down the size down automatically for cards.',
+      description: 'This image will be the large image on the episode page. Image should be (ideally) 1344px x 898px.',
       type: 'object',
       fields: [
         {
@@ -63,7 +63,7 @@ export default {
     {
       name: 'secondaryEpisodeImage',
       title: 'Secondary episode image',
-      description: 'This image will be used across all cards and on the research page. Image should be (ideally) 1344px x 898px. We will cut down the size down automatically for cards. If not provided, the primary episode image will be used.',
+      description: 'This image will be used across all cards. Image should be at least 600px wide. We will cut down the size down automatically for cards if neccessary. If not provided, the primary episode image will be used.',
       type: 'object',
       fields: [
         {

@@ -14,7 +14,6 @@ const { streams, theme = 'b1ack' } = Astro.props
 ---
 
 <ul
-  role="menu"
   aria-label="Select streaming platform"
   class={cn('flex rounded-full p-1', theme === 'b1ack' ? 'bg-b1ack-textured' : 'bg-0range')}>
   {
@@ -22,7 +21,6 @@ const { streams, theme = 'b1ack' } = Astro.props
       <li role="presentation">
         <a
           href={url}
-          role="menuitem"
           target="_blank"
           rel="noopener noreferrer"
           class={cn(
