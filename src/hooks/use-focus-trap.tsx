@@ -44,19 +44,15 @@ export default function useFocusTrap(
     function handleKeyDown(e: KeyboardEvent) {
       switch (e.key) {
         case 'Tab':
-          if (e.shiftKey) {
-            if (document.activeElement === firstElement) {
-              lastElement.focus()
-            }
-          } else {
-            if (document.activeElement === lastElement) {
-              firstElement.focus()
-            }
+          if (e.shiftKey && document.activeElement === firstElement) {
+            lastElement.focus()
+          } else if (document.activeElement === lastElement) {
+            firstElement.focus()
           }
           break
         case 'Escape':
           e.preventDefault()
-          onEsc ? onEsc() : node?.blur()
+          onEsc?.() ?? node?.blur()
           break
       }
     }
