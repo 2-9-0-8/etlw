@@ -35,6 +35,12 @@ export type Episode = {
     url: string
     alt: string
   }
+  albumCoverImage: {
+    width: number
+    height: number
+    url: string
+    alt: string
+  }
   introduction: string
   streams: Array<{
     platform: string

@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --off-white: 255 252 235;
+    --off-white: 238 240 243;
     --0range: 244 63 8;
     --b1ack: 16 20 2;
     --font-sans: 'Helvetica Neue';
@@ -91,10 +91,10 @@
   }
 
   .bg-off-white-textured {
-    background-image: url('/assets/bgs/off-white-textured.png');
+    background-image: url('/assets/bgs/off-white-textured-v2.png');
 
     @supports (background-image: url('foo.webp')) {
-      background-image: url('/assets/bgs/off-white-textured.webp');
+      background-image: url('/assets/bgs/off-white-textured-v2.webp');
     }
   }
 

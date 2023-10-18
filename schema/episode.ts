@@ -63,7 +63,35 @@ export default {
     {
       name: 'secondaryEpisodeImage',
       title: 'Secondary episode image',
-      description: 'This image will be used across all cards. Image should be at least 600px wide. We will cut down the size down automatically for cards if neccessary. If not provided, the primary episode image will be used.',
+      description: 'This image will be used across all cards except music/album card. Image should be at least 600px wide. We will cut down the size down automatically for cards if neccessary. If not provided, the primary episode image will be used.',
+      type: 'object',
+      fields: [
+        {
+          name: 'url',
+          title: 'URL to image on Cloudinary',
+          type: 'url',
+        },
+        {
+          name: 'alt',
+          title: 'Alternative text',
+          type: 'string',
+        },
+        {
+          name: 'width',
+          title: 'Width',
+          type: 'number',
+        },
+        {
+          name: 'height',
+          title: 'Height',
+          type: 'number',
+        },
+      ],
+    },
+    {
+      name: 'albumCoverImage',
+      title: 'Album cover image',
+      description: 'This image will be used on the music page. Image should be at least 600px wide. If not provided, we will fallback to secondary, then primary episode images.',
       type: 'object',
       fields: [
         {
