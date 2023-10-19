@@ -1,13 +1,11 @@
 ---
-import { groq, useSanityClient } from '@/lib/sanity'
-import type { Episode } from '@/lib/types'
-
 import Layout from '@/layouts/layout.astro'
 import CatalogueCardList from '@/components/catalogue-card-list.astro'
 import ContentWrapper from '@/components/content-wrapper.astro'
 import YSection from '@/components/y-section.astro'
+import { getEpisodes } from '@/lib/utils'
 
-const episodes = await sanityClient.fetch(`*[_type == 'episode'] | order(_createdAt desc)`)
+const episodes = await getEpisodes()
 ---
 
 <Layout title="Episodes" class="flex flex-col">

@@ -13,7 +13,14 @@ type Props = {
 }
 
 const { episode, class: className } = Astro.props
-const { streams, primaryEpisodeImage, secondaryEpisodeImage, albumCoverImage, series } = episode
+const {
+  primaryEpisodeImage,
+  secondaryEpisodeImage,
+  albumCoverImage,
+  series,
+  musicUrl,
+  podcastUrl,
+} = episode
 const { url: imageUrl, alt } = albumCoverImage || secondaryEpisodeImage || primaryEpisodeImage
 
 const cloudinaryParams = 'c_fill,h_300,w_300,f_auto,q_auto'
@@ -33,5 +40,5 @@ const number = await getEpisodePositionInSeries(episode)
   <Heading level={2} styleAsLevel={6} class="mb-4 text-center font-sans normal-case">
     Series {series} Episode {number}
   </Heading>
-  <ListenNowOptions {streams} theme="0range" />
+  <ListenNowOptions {musicUrl} {podcastUrl} theme="0range" />
 </div>

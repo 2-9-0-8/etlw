@@ -25,7 +25,7 @@ if (!episode) {
   return Astro.redirect('/404')
 }
 
-const { title, quotes, series, streams, primaryEpisodeImage, introduction } = episode
+const { title, quotes, series, primaryEpisodeImage, introduction, musicUrl, podcastUrl } = episode
 const [_, ...restQuotes] = quotes
 const { url: coverImageUrl, width, height, alt } = primaryEpisodeImage
 const number = await getEpisodePositionInSeries(episode)
@@ -51,7 +51,7 @@ const number = await getEpisodePositionInSeries(episode)
   </div>
 
   <ListenNow translateHalf="top" anchor="bottom" client:idle>
-    <ListenNowOptions {streams} />
+    <ListenNowOptions  {musicUrl} {podcastUrl} />
   </ListenNow>
 
   <ContentWrapper>

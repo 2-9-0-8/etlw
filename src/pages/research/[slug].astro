@@ -1,6 +1,5 @@
 ---
 import { PortableText } from 'astro-portabletext'
-import { Image } from 'astro:assets'
 
 import type { Episode } from '@/lib/types'
 import { getEpisodeBySlug, getEpisodePositionInSeries } from '@/lib/utils'
@@ -24,8 +23,7 @@ if (!episode) {
   return Astro.redirect('/404')
 }
 
-const { title, research, series, streams, primaryEpisodeImage, secondaryEpisodeImage } = episode
-const { url: coverImageUrl, width, height, alt } = secondaryEpisodeImage || primaryEpisodeImage
+const { title, research, series, musicUrl, podcastUrl } = episode
 const number = await getEpisodePositionInSeries(episode)
 ---
 
@@ -45,7 +43,7 @@ const number = await getEpisodePositionInSeries(episode)
   </div>
 
   <ListenNow translateHalf="top" anchor="bottom" client:idle>
-    <ListenNowOptions {streams} />
+    <ListenNowOptions {musicUrl} {podcastUrl} />
   </ListenNow>
 
   <ContentWrapper>

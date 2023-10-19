@@ -1,38 +1,38 @@
 ---
-import type { Icon as $Icon, Episode } from '@/lib/types'
+import type { Episode } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 import Icon from '@/components/icon.astro'
 
 type Props = {
-  streams: Episode['streams']
+  musicUrl: Episode['musicUrl']
+  podcastUrl: Episode['podcastUrl']
   theme?: 'b1ack' | '0range'
 }
 
-const availableIcons: Array<$Icon> = ['spotify', 'youtube']
-const { streams, theme = 'b1ack' } = Astro.props
+const {podcastUrl, musicUrl, theme = 'b1ack' } = Astro.props
 ---
 
 <ul
   aria-label="Select streaming platform"
   class={cn('flex rounded-full p-1', theme === 'b1ack' ? 'bg-b1ack-textured' : 'bg-0range')}>
   {
-    streams.map(({ platform, url }) => (
-      <li role="presentation">
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class={cn(
-            'flex items-center gap-1.5 rounded-[calc(9999px_-_1rem)] px-3 py-2 text-xs font-medium text-off-white ',
-            theme === 'b1ack' ? 'hover:bg-0range-textured' : 'hover:bg-b1ack-textured'
-          )}>
-          {platform}
-          {availableIcons.includes(platform.toLowerCase() as $Icon) && (
-            <Icon name={platform.toLowerCase() as $Icon} width={12} height={12} />
-          )}
-        </a>
-      </li>
-    ))
+    [podcastUrl, musicUrl].map(
+      url =>
+        url && (
+          <li role="presentation">
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={cn(
+                'flex items-center gap-1.5 rounded-[calc(9999px_-_1rem)] px-3 py-2 text-xs font-medium text-off-white ',
+                theme === 'b1ack' ? 'hover:bg-0range-textured' : 'hover:bg-b1ack-textured'
+              )}>
+              {url.includes('podcast') ? 'Podcast' : 'Music'}
+            </a>
+          </li>
+        )
+    )
   }
 </ul>

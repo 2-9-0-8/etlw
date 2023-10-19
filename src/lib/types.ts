@@ -42,10 +42,8 @@ export type Episode = {
     alt: string
   }
   introduction: string
-  streams: Array<{
-    platform: string
-    url: string
-  }>
+  podcastUrl: string
+  musicUrl: string
   featuring: Array<string>
   publishedAt: string
   quotes: Array<{

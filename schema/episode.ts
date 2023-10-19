@@ -122,26 +122,14 @@ export default {
       type: 'datetime',
     },
     {
-      name: 'streams',
-      title: 'Streams',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            {
-              name: 'platform',
-              title: 'Platform',
-              type: 'string',
-            },
-            {
-              name: 'url',
-              title: 'URL',
-              type: 'url',
-            },
-          ],
-        },
-      ],
+      name: 'podcastUrl',
+      title: 'Podcast URL',
+      type: 'url',
+    },
+    {
+      name: 'musicUrl',
+      title: 'Music URL',
+      type: 'url',
     },
     {
       name: 'introduction',
