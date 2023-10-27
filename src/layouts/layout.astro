@@ -6,11 +6,11 @@ import { cn } from '@/lib/utils'
 
 import '@/styles/globals.css'
 
-import ContentWrapper from '@/components/content-wrapper.astro'
 import Footer from '@/components/footer.astro'
 import Header from '@/components/header.astro'
 import Nav from '@/components/nav'
 import Scrollable from '@/components/scrollable'
+import Wrapper from '@/components/wrapper.astro'
 import YSection from '@/components/y-section.astro'
 
 export type Props = {
@@ -36,14 +36,14 @@ const { pathname } = Astro.url
 
     <ViewTransitions />
   </head>
-  <body class="flex min-h-full flex-col bg-off-white-textured font-sans">
+  <body class="bg-off-white-textured flex min-h-full flex-col font-sans">
     <Header />
 
     <YSection size="2xs" class="bg-b1ack-textured">
       <Scrollable client:load fromTo="from-neutral-950 to-neutral-900/0">
-        <ContentWrapper>
+        <Wrapper>
           <Nav client:load {pathname} />
-        </ContentWrapper>
+        </Wrapper>
       </Scrollable>
     </YSection>
 

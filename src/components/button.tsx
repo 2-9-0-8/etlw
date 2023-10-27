@@ -37,7 +37,7 @@ const Button = forwardRef(
       <Cmp
         ref={ref}
         className={cn(
-          'text-xl mx-auto w-fit rounded-full px-10 py-3 font-display font-extrabold uppercase md:px-12 md:py-4 md:text-2xl',
+          'mx-auto w-fit rounded-full px-10 py-3 font-display text-xl font-extrabold uppercase md:px-12 md:py-4 md:text-2xl',
           translateHalf === 'top'
             ? '-translate-y-1/2'
             : translateHalf === 'bottom'

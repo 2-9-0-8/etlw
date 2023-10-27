@@ -4,14 +4,13 @@ import { Image } from 'astro:assets'
 import { cn } from '@/lib/utils'
 
 import BrandAsset from '@/components/brand-asset.astro'
-import ContentWrapper from '@/components/content-wrapper.astro'
-import Nav from '@/components/nav.tsx'
-import YSection from '@/components/y-section.astro'
+import Wrapper from '@/components/wrapper.astro'
 import record from '@/assets/record.png'
 
 const { pathname } = Astro.url
 
 const expanded = pathname === '/'
+
 const animProps = {
   old: {
     name: 'slide-up',
@@ -33,7 +32,7 @@ const recordAnimation = {
 }
 ---
 
-<ContentWrapper>
+<Wrapper>
   <header>
     <Image
       transition:animate={recordAnimation}
@@ -56,7 +55,7 @@ const recordAnimation = {
       </a>
     </div>
   </header>
-</ContentWrapper>
+</Wrapper>
 
 <style is:global>
   @keyframes slide-up {

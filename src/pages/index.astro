@@ -5,9 +5,10 @@ import { DESCRIPTION, PODCAST_NAME } from '@/lib/config'
 import { getLatestEpisode } from '@/lib/utils'
 
 import Layout from '@/layouts/layout.astro'
-import ContentWrapper from '@/components/content-wrapper.astro'
 import Heading from '@/components/heading.astro'
 import LatestCard from '@/components/latest-card.astro'
+import NoEpisodes from '@/components/no-episodes.astro'
+import Wrapper from '@/components/wrapper.astro'
 import YSection from '@/components/y-section.astro'
 import Headphones from '@/assets/headphones.jpg'
 import RecordShop from '@/assets/record-shop.jpg'
@@ -27,17 +28,17 @@ const episode = await getLatestEpisode()
   <h1 class="sr-only">Welcome to {PODCAST_NAME}</h1>
 
   <div class="bg-b1ack-textured">
-    <ContentWrapper>
+    <Wrapper>
       <YSection size="lg">
         <p
           class="balance text-center text-2xl font-bold text-off-white md:text-4xl"
           set:html={welcomeMessage}
         />
       </YSection>
-    </ContentWrapper>
+    </Wrapper>
   </div>
 
-  <ContentWrapper expand>
+  <Wrapper expand>
     <YSection size="lg">
       <Heading level={2} class="text-center text-0range">Latest Episode</Heading>
 
@@ -47,7 +48,7 @@ const episode = await getLatestEpisode()
           alt="Record shop"
           class="hidden h-auto w-full self-stretch rounded-3xl object-cover md:block"
         />
-        <LatestCard {episode} />
+        {episode ? <LatestCard {episode} /> : <NoEpisodes class="m-auto" />}
         <Image
           src={Headphones}
           alt="Headphones"
@@ -55,5 +56,5 @@ const episode = await getLatestEpisode()
         />
       </div>
     </YSection>
-  </ContentWrapper>
+  </Wrapper>
 </Layout>
