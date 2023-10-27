@@ -1,5 +1,12 @@
 ---
-import { CONTACT_EMAIL, CONTACT_NUMBER, INSTAGRAM, PODCAST_NAME } from '@/lib/config'
+import {
+  CONTACT_EMAIL,
+  CONTACT_NUMBER,
+  FACEBOOK,
+  INSTAGRAM,
+  PODCAST_NAME,
+  YOUTUBE,
+} from '@/lib/config'
 import type { Icon as $Icon, Episode } from '@/lib/types'
 import { getEpisodePositionInSeries, getEpisodes } from '@/lib/utils'
 
@@ -10,10 +17,9 @@ import Wrapper from '@/components/wrapper.astro'
 import YSection from '@/components/y-section.astro'
 
 const icons: Array<{ name: $Icon; href: string }> = [
-  { name: 'youtube_rounded', href: '#' },
-  { name: 'instagram_rounded', href: '#' },
-  { name: 'facebook_rounded', href: '#' },
-  { name: 'twitter_rounded', href: '#' },
+  { name: 'youtube_rounded', href: '' },
+  { name: 'instagram_rounded', href: `https://www.instagram.com/${INSTAGRAM}` },
+  { name: 'facebook_rounded', href: '' },
 ]
 const year = new Date().getFullYear()
 
@@ -59,13 +65,16 @@ const numberedEpisodes = await Promise.all(
 
       <ul class="mt-8 flex items-center justify-center gap-3">
         {
-          icons.map(({ name, href }) => (
-            <li>
-              <a {href}>
-                <Icon {name} width={36} height={36} />
-              </a>
-            </li>
-          ))
+          icons.map(
+            ({ name, href }) =>
+              href && (
+                <li>
+                  <a {href}>
+                    <Icon {name} width={36} height={36} />
+                  </a>
+                </li>
+              )
+          )
         }
       </ul>
       <p class="mt-6 text-sm font-medium">Copyright {year} - {PODCAST_NAME}</p>
