@@ -27,7 +27,7 @@ export default function Scrollable({
     const { scrollLeft, scrollWidth, clientWidth } = target
 
     setIsLeftEdgeVisible(scrollLeft > 0)
-    setIsRightEdgeVisible(Math.ceil(scrollLeft) < scrollWidth - clientWidth)
+    setIsRightEdgeVisible(Math.ceil(scrollLeft) < scrollWidth - clientWidth - 1)
   }
 
   useEffect(() => {
