@@ -1,10 +1,12 @@
 ---
 import { CONTACT_EMAIL, CONTACT_NUMBER, INSTAGRAM, PODCAST_NAME } from '@/lib/config'
-import type { Icon as $Icon } from '@/lib/types'
+import type { Icon as $Icon, Episode } from '@/lib/types'
+import { getEpisodePositionInSeries, getEpisodes } from '@/lib/utils'
 
-import ContentWrapper from '@/components/content-wrapper.astro'
 import Heading from '@/components/heading.astro'
 import Icon from '@/components/icon.astro'
+import PodcastStream from '@/components/podcast-stream'
+import Wrapper from '@/components/wrapper.astro'
 import YSection from '@/components/y-section.astro'
 
 const icons: Array<{ name: $Icon; href: string }> = [
@@ -14,11 +16,40 @@ const icons: Array<{ name: $Icon; href: string }> = [
   { name: 'twitter_rounded', href: '#' },
 ]
 const year = new Date().getFullYear()
+
+const episodes = await getEpisodes({ previews: true, limit: 5 })
+const numberedEpisodes = await Promise.all(
+  episodes.map(async (episode: Episode) => {
+    const number = await getEpisodePositionInSeries(episode)
+
+    return {
+      ...episode,
+      number,
+    }
+  })
+)
 ---
 
 <footer class="bg-0range-textured">
-  <ContentWrapper>
+  <Wrapper>
     <YSection size="lg" class="text-center">
+      {
+        episodes.length ? (
+          <>
+            <Heading level={3}>Listen now</Heading>
+            <div class="mb-6 md:mb-16">
+              <PodcastStream episodes={numberedEpisodes} transition:persist client:load />
+
+              <a href="/music" class="mx-auto mt-6 inline-block font-bold leading-none">
+                Listen to more episodes
+              </a>
+            </div>
+          </>
+        ) : (
+          ''
+        )
+      }
+
       <Heading level={3}>Contact</Heading>
       <ul class="text-lg font-bold uppercase leading-tight xs:text-xl md:text-2xl">
         <li><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></li>
@@ -39,5 +70,5 @@ const year = new Date().getFullYear()
       </ul>
       <p class="mt-6 text-sm font-medium">Copyright {year} - {PODCAST_NAME}</p>
     </YSection>
-  </ContentWrapper>
+  </Wrapper>
 </footer>

@@ -1,6 +1,14 @@
 export type BrandColour = 'off-white' | '0range' | 'b1ack'
 export type BrandAsset = 'white logo' | 'orange + black logo' | 'black + orange logo'
-export type Icon = 'spotify' | 'youtube' | 'facebook_rounded' | 'instagram_rounded' | 'youtube_rounded' | 'twitter_rounded'
+export type Icon =
+  | 'spotify'
+  | 'youtube'
+  | 'facebook_rounded'
+  | 'instagram_rounded'
+  | 'youtube_rounded'
+  | 'twitter_rounded'
+  | 'play_rounded'
+  | 'pause_rounded'
 
 export type Route = {
   href: string
@@ -17,6 +25,7 @@ export type Card = {
 
 export type Episode = {
   _id: string
+  previewOnly: boolean
   series: number
   title: string
   slug: {
@@ -44,6 +53,10 @@ export type Episode = {
   introduction: string
   podcastUrl: string
   musicUrl: string
+  podcastMp3Urls: {
+    trailer: string
+    full: string
+  }
   featuring: Array<string>
   publishedAt: string
   quotes: Array<{

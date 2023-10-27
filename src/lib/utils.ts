@@ -24,8 +24,20 @@ export function debounce<T extends Array<unknown>>(callback: (...args: T) => voi
   }
 }
 
-export async function getEpisodes() {
-  return await sanityClient.fetch(`*[_type == 'episode'] | order(_createdAt desc)`)
+export async function getEpisodes({
+  previews = false,
+  limit,
+}: { previews?: boolean; limit?: number } = {}) {
+  const showPreviews = previews ? ' && defined(previewOnly)' : ' && !defined(previewOnly)'
+  const setLimit = limit ? `[0..${limit}]` : ''
+
+  return await sanityClient.fetch(
+    `*[_type == 'episode'${showPreviews}] | order(_createdAt desc)${setLimit}`
+  )
+}
+
+export async function getPreviewEpisodes() {
+  return await sanityClient.fetch(`*[_type == 'episode' && previewOnly] | order(_createdAt desc)`)
 }
 
 export async function getEpisodeBySlug(slug: string) {
@@ -44,16 +56,26 @@ export async function getEpisodePositionInSeries(episode: Episode) {
 
 export async function getEpisodeById(_id: string) {
   const episode = await sanityClient.fetch(`
-    *[_type == 'episode' && _id == ${_id}][0]
+    *[_type == 'episode' && _id == ${_id}][0] 
   `)
 
   return episode
 }
 
-export async function getLatestEpisode() {
+export async function getLatestEpisode({ previews }: { previews?: boolean } = { previews: false }) {
+  const showPreviews = previews ? '&& previewOnly' : '&& !previewOnly'
+
   const episodes = await sanityClient.fetch(`
-    *[_type == 'episode'] | order(publishedAt desc)
+    *[_type == 'episode' ${showPreviews}] | order(publishedAt desc)
   `)
 
   return episodes[0]
+}
+
+export function formatAudioTime(seconds: number) {
+  const m = Math.floor(seconds / 60)
+  const s = Math.floor(seconds % 60)
+  const rs = s < 10 ? `0${s}` : `${s}`
+
+  return `${m}:${rs}`
 }
