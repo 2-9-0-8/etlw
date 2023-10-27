@@ -86,40 +86,49 @@ export default function PodcastStream({
       </button>
 
       <ul className="mt-4 space-y-2" role="menu" aria-label="Select episode to play">
-        {episodes.map(episode => (
-          <li
-            onClick={() => handleClick(episode)}
-            key={episode._id}
-            className={cn(
-              'mx-auto flex max-w-2xl cursor-pointer items-center justify-between gap-4 rounded-full bg-off-white px-4 py-2 text-xs font-medium md:px-6 md:text-sm',
-              current !== episode && 'opacity-80'
-            )}
-            role="presentation">
-            <div className="overflow-x-auto whitespace-nowrap">
-              <Scrollable fromTo="from-off-white to-off-white/0">
-                <button
-                  onClick={(e: React.MouseEvent) => {
-                    e.stopPropagation()
-                    handleClick(episode)
-                  }}
-                  className="flex items-baseline gap-1.5 font-medium"
-                  role="menuitem">
-                  <span className="text-0range">
-                    Series {episode.series} Episode {episode.number}{' '}
-                    {episode.podcastMp3Urls?.trailer && 'trailer'}
-                  </span>{' '}
-                  / {episode.title}
-                </button>
-              </Scrollable>
-            </div>
+        {episodes.map(episode => {
+          const {
+            title,
+            series,
+            number,
+            _id,
+            podcastMp3Urls: { trailer },
+          } = episode
 
-            {episode === current && (
-              <time aria-label="Current time" className="shrink-0">
-                {time} / {duration}
-              </time>
-            )}
-          </li>
-        ))}
+          return (
+            <li
+              onClick={() => handleClick(episode)}
+              key={_id}
+              className={cn(
+                'mx-auto flex max-w-2xl cursor-pointer items-center justify-between gap-4 rounded-full bg-off-white px-4 py-2 text-xs font-medium md:px-6 md:text-sm',
+                current !== episode && 'opacity-80'
+              )}
+              role="presentation">
+              <div className="overflow-x-auto whitespace-nowrap">
+                <Scrollable fromTo="from-off-white to-off-white/0">
+                  <button
+                    onClick={(e: React.MouseEvent) => {
+                      e.stopPropagation()
+                      handleClick(episode)
+                    }}
+                    className="flex items-baseline gap-1.5 font-medium"
+                    role="menuitem">
+                    <span className="text-0range">
+                      Series {series} Episode {number} {trailer && 'trailer'}
+                    </span>{' '}
+                    / {title}
+                  </button>
+                </Scrollable>
+              </div>
+
+              {episode === current && (
+                <time aria-label="Current time" className="shrink-0">
+                  {time} / {duration}
+                </time>
+              )}
+            </li>
+          )
+        })}
       </ul>
 
       <audio
