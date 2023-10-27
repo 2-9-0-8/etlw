@@ -98,7 +98,7 @@ export default function PodcastStream({
             <div className="overflow-x-auto whitespace-nowrap">
               <Scrollable fromTo="from-off-white to-off-white/0">
                 <button
-                  onClick={(e: Event) => {
+                  onClick={(e: React.MouseEvent) => {
                     e.stopPropagation()
                     handleClick(episode)
                   }}
