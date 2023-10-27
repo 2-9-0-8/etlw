@@ -4,8 +4,7 @@
 
 @layer base {
   :root {
-    --off-white-v2: 238 240 243;
-    --off-white: 255 252 235;
+    --off-white: 249 242 221;
     --0range: 244 63 8;
     --b1ack: 16 20 2;
     --font-sans: 'Helvetica Neue';
@@ -34,9 +33,7 @@
     list-style: none;
 
     > li {
-
       &::before {
-        
         color: rgb(var(--0range) / 1);
         display: inline-block;
         content: '\2022';
@@ -92,10 +89,10 @@
   }
 
   .bg-off-white-textured {
-    background-image: url('/assets/bgs/off-white-textured.png');
+    background-image: url('/assets/bgs/off-white-textured-v3.png');
 
     @supports (background-image: url('foo.webp')) {
-      background-image: url('/assets/bgs/off-white-textured.webp');
+      background-image: url('/assets/bgs/off-white-textured-v3.webp');
     }
   }
 
