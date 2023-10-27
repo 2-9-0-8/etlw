@@ -28,7 +28,7 @@ export async function getEpisodes({
   previews = false,
   limit,
 }: { previews?: boolean; limit?: number } = {}) {
-  const showPreviews = previews ? ' && defined(previewOnly)' : ' && !defined(previewOnly)'
+  const showPreviews = previews ? '' : ' && !previewOnly'
   const setLimit = limit ? `[0..${limit}]` : ''
 
   return await sanityClient.fetch(
@@ -63,7 +63,7 @@ export async function getEpisodeById(_id: string) {
 }
 
 export async function getLatestEpisode({ previews }: { previews?: boolean } = { previews: false }) {
-  const showPreviews = previews ? '&& previewOnly' : '&& !previewOnly'
+  const showPreviews = previews ? '' : ' && !previewOnly'
 
   const episodes = await sanityClient.fetch(`
     *[_type == 'episode' ${showPreviews}] | order(publishedAt desc)
