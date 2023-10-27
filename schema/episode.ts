@@ -1,8 +1,18 @@
+import type { Rule } from 'sanity'
+
 export default {
   title: 'Episode',
   name: 'episode',
   type: 'document',
   fields: [
+    {
+      name: 'previewOnly',
+      title: 'Preview only',
+      description:
+        'Check this box if you want to hide this episode from the public BUT include the Acast trailer link in the Acast feed.',
+      type: 'boolean',
+      initialValue: true,
+    },
     {
       name: 'series',
       title: 'Series',
@@ -35,7 +45,8 @@ export default {
     {
       name: 'primaryEpisodeImage',
       title: 'Primary episode image',
-      description: 'This image will be the large image on the episode page. Image should be (ideally) 1344px x 898px.',
+      description:
+        'This image will be the large image on the episode page. Image should be (ideally) 1344px x 898px.',
       type: 'object',
       fields: [
         {
@@ -63,7 +74,8 @@ export default {
     {
       name: 'secondaryEpisodeImage',
       title: 'Secondary episode image',
-      description: 'This image will be used across all cards except music/album card. Image should be at least 600px wide. We will cut down the size down automatically for cards if neccessary. If not provided, the primary episode image will be used.',
+      description:
+        'This image will be used across all cards except music/album card. Image should be at least 600px wide. We will cut down the size down automatically for cards if neccessary. If not provided, the primary episode image will be used.',
       type: 'object',
       fields: [
         {
@@ -91,7 +103,8 @@ export default {
     {
       name: 'albumCoverImage',
       title: 'Album cover image',
-      description: 'This image will be used on the music page. Image should be at least 600px wide. If not provided, we will fallback to secondary, then primary episode images.',
+      description:
+        'This image will be used on the music page. Image should be at least 600px wide. If not provided, we will fallback to secondary, then primary episode images.',
       type: 'object',
       fields: [
         {
@@ -124,12 +137,33 @@ export default {
     {
       name: 'podcastUrl',
       title: 'Podcast URL',
+      description: 'This is the URL to the Acast page',
       type: 'url',
     },
     {
       name: 'musicUrl',
       title: 'Music URL',
+      description: 'This is the URL to the link share page',
       type: 'url',
+    },
+    {
+      name: 'podcastMp3Urls',
+      title: 'Podcast MP3 URLs',
+      description:
+        'This is the URL to the MP3 file on Acast. There is one field for the episode trailer, and one for the full episode. If full episode is present, then we will hide the trailer link in the Acast feed.',
+      type: 'object',
+      fields: [
+        {
+          name: 'trailer',
+          title: 'Trailer',
+          type: 'url',
+        },
+        {
+          name: 'full',
+          title: 'Full episode',
+          type: 'url',
+        },
+      ],
     },
     {
       name: 'introduction',
