@@ -2,23 +2,32 @@
 import type { Episode } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
-import Icon from '@/components/icon.astro'
-
 type Props = {
   musicUrl: Episode['musicUrl']
   podcastUrl: Episode['podcastUrl']
   theme?: 'b1ack' | '0range'
 }
 
-const {podcastUrl, musicUrl, theme = 'b1ack' } = Astro.props
+const { podcastUrl, musicUrl, theme = 'b1ack' } = Astro.props
+
+const items = [
+  {
+    label: 'Music',
+    url: musicUrl,
+  },
+  {
+    label: 'Podcast',
+    url: podcastUrl,
+  },
+]
 ---
 
 <ul
   aria-label="Select streaming platform"
   class={cn('flex rounded-full p-1', theme === 'b1ack' ? 'bg-b1ack-textured' : 'bg-0range')}>
   {
-    [podcastUrl, musicUrl].map(
-      url =>
+    items.map(
+      ({ label, url }) =>
         url && (
           <li role="presentation">
             <a
@@ -29,7 +38,7 @@ const {podcastUrl, musicUrl, theme = 'b1ack' } = Astro.props
                 'flex items-center gap-1.5 rounded-[calc(9999px_-_1rem)] px-3 py-2 text-xs font-medium text-off-white ',
                 theme === 'b1ack' ? 'hover:bg-0range-textured' : 'hover:bg-b1ack-textured'
               )}>
-              {url.includes('podcast') ? 'Podcast' : 'Music'}
+              {label}
             </a>
           </li>
         )

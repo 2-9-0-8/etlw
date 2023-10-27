@@ -12,6 +12,11 @@ type Props = {
 }
 
 const { episode, class: className } = Astro.props
+
+if (!episode) {
+  throw new Error('No episode data provided')
+}
+
 const { title, series, quotes, primaryEpisodeImage, secondaryEpisodeImage, slug } = episode
 const [{ quote }] = quotes
 const { url: imageUrl, width, height, alt } = secondaryEpisodeImage || primaryEpisodeImage

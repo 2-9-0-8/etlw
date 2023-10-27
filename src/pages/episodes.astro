@@ -1,9 +1,11 @@
 ---
+import { getEpisodes } from '@/lib/utils'
+
 import Layout from '@/layouts/layout.astro'
 import CatalogueCardList from '@/components/catalogue-card-list.astro'
-import ContentWrapper from '@/components/content-wrapper.astro'
+import NoEpisodes from '@/components/no-episodes.astro'
+import Wrapper from '@/components/wrapper.astro'
 import YSection from '@/components/y-section.astro'
-import { getEpisodes } from '@/lib/utils'
 
 const episodes = await getEpisodes()
 ---
@@ -11,11 +13,11 @@ const episodes = await getEpisodes()
 <Layout title="Episodes" class="flex flex-col">
   <h1 class="sr-only">All episodes</h1>
 
-  <div class="grow bg-b1ack-textured text-off-white">
-    <ContentWrapper>
+  <div class="bg-b1ack-textured grow text-off-white">
+    <Wrapper>
       <YSection size="md">
-        <CatalogueCardList {episodes} />
+        {episodes.length ? <CatalogueCardList {episodes} /> : <NoEpisodes class="text-off-white" />}
       </YSection>
-    </ContentWrapper>
+    </Wrapper>
   </div>
 </Layout>

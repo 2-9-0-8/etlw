@@ -30,13 +30,7 @@ const number = await getEpisodePositionInSeries(episode)
 ---
 
 <div class={cn('flex flex-col items-center justify-center', className)}>
-  <Image
-    src={cloudinaryUrl}
-    {alt}
-    width="160"
-    height="160"
-    class="mb-4 aspect-square rounded-[50%]"
-  />
+  <Image src={cloudinaryUrl} {alt} width="160" height="160" class="mb-4 rounded-xl" />
   <Heading level={2} styleAsLevel={6} class="mb-4 text-center font-sans normal-case">
     Series {series} Episode {number}
   </Heading>

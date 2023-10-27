@@ -6,7 +6,7 @@ import { getEpisodeBySlug, getEpisodePositionInSeries } from '@/lib/utils'
 
 import Layout from '@/layouts/layout.astro'
 import Button from '@/components/button'
-import ContentWrapper from '@/components/content-wrapper.astro'
+import Wrapper from '@/components/wrapper.astro'
 import Heading from '@/components/heading.astro'
 import ListenNow from '@/components/listen-now'
 import ListenNowOptions from '@/components/listen-now-options.astro'
@@ -33,7 +33,7 @@ const number = await getEpisodePositionInSeries(episode)
 
 <Layout title={`Episode: S${series} E${number} - ${title}`} class="flex flex-col">
   <div class="bg-b1ack-textured text-off-white">
-    <ContentWrapper>
+    <Wrapper>
       <YSection size="md">
         <Heading level={1} class="text-center">
           <span class="mb-2 font-display text-lg font-extrabold uppercase text-0range md:text-2xl">
@@ -47,14 +47,14 @@ const number = await getEpisodePositionInSeries(episode)
       </YSection>
 
       <Image src={coverImageUrl} {width} {height} {alt} class="h-auto w-full" />
-    </ContentWrapper>
+    </Wrapper>
   </div>
 
   <ListenNow translateHalf="top" anchor="bottom" client:idle>
-    <ListenNowOptions  {musicUrl} {podcastUrl} />
+    <ListenNowOptions {musicUrl} {podcastUrl} />
   </ListenNow>
 
-  <ContentWrapper>
+  <Wrapper>
     <YSection size="lg" class="flex flex-col gap-4">
       {
         restQuotes.map(({ quote, author }) => (
@@ -65,13 +65,13 @@ const number = await getEpisodePositionInSeries(episode)
         ))
       }
     </YSection>
-  </ContentWrapper>
+  </Wrapper>
 
   <Button as="a" href={`/research/${slug}`} translateHalf="bottom">Research</Button>
 
   <div class="bg-b1ack-textured text-off-white">
-    <ContentWrapper>
+    <Wrapper>
       <Image src={studio} alt="Image of the record studio" class="h-auto w-full" />
-    </ContentWrapper>
+    </Wrapper>
   </div>
 </Layout>
