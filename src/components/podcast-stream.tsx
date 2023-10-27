@@ -81,7 +81,7 @@ export default function PodcastStream({
         type="button"
         onClick={() => setPlaying(prev => !prev)}
         role="menuitem"
-        className="mx-auto flex w-16 max-w-2xl items-center justify-center rounded-full bg-b1ack py-2 text-center text-xs font-medium text-off-white">
+        className="mx-auto flex max-w-2xl items-center justify-center rounded-full bg-b1ack px-3 py-2 text-center text-xs font-medium text-off-white">
         {playing ? 'Pause' : 'Play'}
       </button>
 
