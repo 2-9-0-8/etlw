@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets'
 
 import { DESCRIPTION, PODCAST_NAME } from '@/lib/config'
-import { getLatestEpisode } from '@/lib/utils'
+import { getEpisodes, getLatestEpisode } from '@/lib/utils'
 
 import Layout from '@/layouts/layout.astro'
 import Heading from '@/components/heading.astro'
@@ -21,7 +21,7 @@ const welcomeMessage = DESCRIPTION.replace(
   `<span class="text-0range uppercase font-display font-extrabold">${stringToReplace}</span>`
 )
 
-const episode = await getLatestEpisode()
+const [episode] = await getEpisodes({ limit: 1 })
 ---
 
 <Layout title="Home">
