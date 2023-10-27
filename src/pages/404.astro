@@ -1,10 +1,8 @@
 ---
 import Layout from '@/layouts/layout.astro'
-import Wrapper from '@/components/wrapper.astro'
 import Heading from '@/components/heading.astro'
+import Wrapper from '@/components/wrapper.astro'
 import YSection from '@/components/y-section.astro'
-
-export const prerender = true
 ---
 
 <Layout title="About">
@@ -12,7 +10,7 @@ export const prerender = true
     <Wrapper>
       <YSection size="md" class="text-center">
         <Heading level={1}>404: Page missing!</Heading>
-        <p class="font-medium text-lg">Sorry, the page you are looking for does not exist.</p>
+        <p class="text-lg font-medium">Sorry, the page you are looking for does not exist.</p>
       </YSection>
     </Wrapper>
   </div>
