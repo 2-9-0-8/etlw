@@ -92,7 +92,7 @@ export default function PodcastStream({
             series,
             number,
             _id,
-            podcastMp3Urls: { trailer },
+            podcastMp3Urls: { trailer, full },
           } = episode
 
           return (
@@ -114,7 +114,7 @@ export default function PodcastStream({
                     className="flex items-baseline gap-1.5 font-medium"
                     role="menuitem">
                     <span className="text-0range">
-                      Series {series} Episode {number} {trailer && 'trailer'}
+                      Series {series} Episode {number} {!full && trailer ? 'trailer' : ''}
                     </span>{' '}
                     / {title}
                   </button>
