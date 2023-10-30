@@ -14,6 +14,7 @@ type Props = {
 
 const { episode, class: className } = Astro.props
 const {
+  _id,
   primaryEpisodeImage,
   secondaryEpisodeImage,
   albumCoverImage,
@@ -26,7 +27,7 @@ const { url: imageUrl, alt } = albumCoverImage || secondaryEpisodeImage || prima
 const cloudinaryParams = 'c_fill,h_300,w_300,f_auto,q_auto'
 const cloudinaryUrl = imageUrl.replace('upload/', `upload/${cloudinaryParams}/`)
 
-const number = await getEpisodePositionInSeries(episode)
+const number = await getEpisodePositionInSeries(_id, series)
 ---
 
 <div class={cn('flex flex-col items-center justify-center', className)}>

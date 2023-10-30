@@ -17,11 +17,11 @@ if (!episode) {
   throw new Error('No episode data provided')
 }
 
-const { title, series, quotes, primaryEpisodeImage, secondaryEpisodeImage, slug } = episode
+const { _id, title, series, quotes, primaryEpisodeImage, secondaryEpisodeImage, slug } = episode
 const [{ quote }] = quotes
 const { url: imageUrl, width, height, alt } = secondaryEpisodeImage || primaryEpisodeImage
 
-const number = await getEpisodePositionInSeries(episode)
+const number = await getEpisodePositionInSeries(_id, series)
 
 const cloudinaryParams = 'c_fill,h_600,w_600,f_auto,q_auto'
 const cloudinaryUrl = imageUrl.replace('upload/', `upload/${cloudinaryParams}/`)

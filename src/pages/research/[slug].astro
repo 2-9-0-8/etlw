@@ -23,8 +23,8 @@ if (!episode) {
   return Astro.redirect('/404')
 }
 
-const { title, research, series, musicUrl, podcastUrl } = episode
-const number = await getEpisodePositionInSeries(episode)
+const { _id, title, research, series, musicUrl, podcastUrl } = episode
+const number = await getEpisodePositionInSeries(_id, series)
 ---
 
 <Layout title={`Research: S${series} E${number} - ${title}`} class="flex flex-col">

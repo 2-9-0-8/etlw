@@ -19,7 +19,10 @@ const welcomeMessage = DESCRIPTION.replace(
   `<span class="text-0range uppercase font-display font-extrabold">${stringToReplace}</span>`
 )
 
-const [episode] = await getEpisodes({ limit: 1 })
+const [episode] = await getEpisodes({
+  limit: 1,
+  fields: '_id, title, series, quotes, primaryEpisodeImage, secondaryEpisodeImage, slug',
+})
 ---
 
 <Layout title="Home">

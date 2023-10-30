@@ -7,7 +7,9 @@ import NoEpisodes from '@/components/no-episodes.astro'
 import Wrapper from '@/components/wrapper.astro'
 import YSection from '@/components/y-section.astro'
 
-const episodes = await getEpisodes()
+const episodes = await getEpisodes({
+  fields: '_id, title, series, quotes, primaryEpisodeImage, secondaryEpisodeImage, slug',
+})
 ---
 
 <Layout title="Research" class="flex flex-col">

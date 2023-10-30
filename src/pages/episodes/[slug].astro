@@ -25,10 +25,10 @@ if (!episode) {
   return Astro.redirect('/404')
 }
 
-const { title, quotes, series, primaryEpisodeImage, introduction, musicUrl, podcastUrl } = episode
+const { _id, title, quotes, series, primaryEpisodeImage, introduction, musicUrl, podcastUrl } = episode
 const [_, ...restQuotes] = quotes
 const { url: coverImageUrl, width, height, alt } = primaryEpisodeImage
-const number = await getEpisodePositionInSeries(episode)
+const number = await getEpisodePositionInSeries(_id, series)
 ---
 
 <Layout title={`Episode: S${series} E${number} - ${title}`} class="flex flex-col">

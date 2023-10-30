@@ -27,12 +27,14 @@ export function debounce<T extends Array<unknown>>(callback: (...args: T) => voi
 export async function getEpisodes({
   previews = false,
   limit,
-}: { previews?: boolean; limit?: number } = {}) {
+  fields,
+}: { previews?: boolean; limit?: number; fields?: string } = {}) {
   const showPreviews = previews ? '' : ' && !previewOnly'
   const setLimit = limit ? `[0..${limit}]` : ''
+  const selectFields = fields ? `{${fields}}` : ''
 
   return await sanityClient.fetch(
-    `*[_type == 'episode'${showPreviews}] | order(_createdAt desc)${setLimit}`
+    `*[_type == 'episode'${showPreviews}] | order(_createdAt desc)${setLimit} ${selectFields}`
   )
 }
 
@@ -41,17 +43,13 @@ export async function getPreviewEpisodes() {
 }
 
 export async function getEpisodeBySlug(slug: string) {
-  const episodes = await sanityClient.fetch(`*[_type == 'episode']`)
-
-  return episodes.find((ep: { slug: { current: string } }) => ep.slug.current === slug)
+  return await sanityClient.fetch(`*[_type == 'episode' && slug.current == '${slug}'][0]`)
 }
 
-export async function getEpisodePositionInSeries(episode: Episode) {
-  const episodes = await sanityClient.fetch(`
-    *[_type == 'episode' && series == ${episode.series}] | order(publishedAt desc)
-  `)
+export async function getEpisodePositionInSeries(id: Episode['_id'], series: Episode['series']) {
+  const episodes = await sanityClient.fetch(`*[_type == 'episode' && series == ${series}] | {_id}`)
 
-  return episodes.findIndex((ep: { _id: string }) => ep._id === episode._id) + 1
+  return episodes.findIndex((episode: Episode) => episode._id === id) + 1
 }
 
 export async function getEpisodeById(_id: string) {

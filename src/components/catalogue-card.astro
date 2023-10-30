@@ -9,11 +9,11 @@ export type Props = {
 }
 
 const { episode, class: className, research } = Astro.props
-const { title, series, quotes, primaryEpisodeImage, secondaryEpisodeImage, slug } = episode
+const { _id, title, series, quotes, primaryEpisodeImage, secondaryEpisodeImage, slug } = episode
 const [{ quote }] = quotes
 const { url: imageUrl } = secondaryEpisodeImage || primaryEpisodeImage
 
-const number = await getEpisodePositionInSeries(episode)
+const number = await getEpisodePositionInSeries(_id, series)
 
 const cloudinaryParams = 'c_fill,h_300,w_300,f_auto,q_auto'
 const cloudinaryUrl = imageUrl.replace('upload/', `upload/${cloudinaryParams}/`)

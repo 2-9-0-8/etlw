@@ -1,12 +1,5 @@
 ---
-import {
-  CONTACT_EMAIL,
-  CONTACT_NUMBER,
-  FACEBOOK,
-  INSTAGRAM,
-  PODCAST_NAME,
-  YOUTUBE,
-} from '@/lib/config'
+import { CONTACT_EMAIL, CONTACT_NUMBER, INSTAGRAM, PODCAST_NAME } from '@/lib/config'
 import type { Icon as $Icon, Episode } from '@/lib/types'
 import { getEpisodePositionInSeries, getEpisodes } from '@/lib/utils'
 
@@ -21,12 +14,18 @@ const icons: Array<{ name: $Icon; href: string }> = [
   { name: 'instagram_rounded', href: `https://www.instagram.com/${INSTAGRAM}` },
   { name: 'facebook_rounded', href: '' },
 ]
+
 const year = new Date().getFullYear()
 
-const episodes = await getEpisodes({ previews: true, limit: 5 })
+const episodes = await getEpisodes({
+  previews: true,
+  limit: 5,
+  fields: 'title, series, number, _id, podcastMp3Urls',
+})
+
 const numberedEpisodes = await Promise.all(
   episodes.map(async (episode: Episode) => {
-    const number = await getEpisodePositionInSeries(episode)
+    const number = await getEpisodePositionInSeries(episode._id, episode.series)
 
     return {
       ...episode,
