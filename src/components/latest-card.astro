@@ -18,7 +18,7 @@ if (!episode) {
 }
 
 const { _id, title, series, quotes, primaryEpisodeImage, secondaryEpisodeImage, slug } = episode
-const [{ quote }] = quotes
+const [{ quote }] = quotes ?? [{ quote: null }]
 const { url: imageUrl, width, height, alt } = secondaryEpisodeImage || primaryEpisodeImage
 
 const number = await getEpisodePositionInSeries(_id, series)
@@ -49,9 +49,12 @@ const parsedTitle = `
     <div>
       <Heading level={3} set:html={parsedTitle} />
       <Image src={cloudinaryUrl} {width} {height} {alt} class="my-3 h-auto w-full rounded-lg" />
-      <blockquote class="font-medium italic">
-        &ldquo;{quote}&rdquo;
-      </blockquote>
+
+      {quote && (
+        <blockquote class="font-medium italic">
+          &ldquo;{quote}&rdquo;
+        </blockquote>
+      )}
     </div>
 
     <a

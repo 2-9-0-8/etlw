@@ -49,7 +49,7 @@ export async function getEpisodeBySlug(slug: string) {
 export async function getEpisodePositionInSeries(id: Episode['_id'], series: Episode['series']) {
   const episodes = await sanityClient.fetch(`*[_type == 'episode' && series == ${series}] | {_id}`)
 
-  return episodes.findIndex((episode: Episode) => episode._id === id) + 1
+  return episodes.reverse().findIndex((episode: Episode) => episode._id === id) + 1
 }
 
 export async function getEpisodeById(_id: string) {

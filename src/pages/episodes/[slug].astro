@@ -26,7 +26,7 @@ if (!episode) {
 }
 
 const { _id, title, quotes, series, primaryEpisodeImage, introduction, musicUrl, podcastUrl } = episode
-const [_, ...restQuotes] = quotes
+const [_, ...restQuotes] = quotes ?? []
 const { url: coverImageUrl, width, height, alt } = primaryEpisodeImage
 const number = await getEpisodePositionInSeries(_id, series)
 ---
@@ -54,18 +54,20 @@ const number = await getEpisodePositionInSeries(_id, series)
     <ListenNowOptions {musicUrl} {podcastUrl} />
   </ListenNow>
 
-  <Wrapper>
-    <YSection size="lg" class="flex flex-col gap-4">
-      {
-        restQuotes.map(({ quote, author }) => (
-          <blockquote class="mx-auto max-w-prose text-center text-lg md:text-2xl">
-            <span class="block mb-4 font-medium md:leading-10">&ldquo;{quote}&rdquo;</span>
-            <footer class="font-bold">- {author}</footer>
-          </blockquote>
-        ))
-      }
-    </YSection>
-  </Wrapper>
+  {restQuotes && (
+    <Wrapper>
+      <YSection size="lg" class="flex flex-col gap-4">
+        {
+          restQuotes.map(({ quote, author }) => (
+            <blockquote class="mx-auto max-w-prose text-center text-lg md:text-2xl">
+              <span class="block mb-4 font-medium md:leading-10">&ldquo;{quote}&rdquo;</span>
+              <footer class="font-bold">- {author}</footer>
+            </blockquote>
+          ))
+        }
+      </YSection>
+    </Wrapper>
+  )}
 
   <Button as="a" href={`/research/${slug}`} translateHalf="bottom">Research</Button>
 

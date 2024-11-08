@@ -10,7 +10,7 @@ export type Props = {
 
 const { episode, class: className, research } = Astro.props
 const { _id, title, series, quotes, primaryEpisodeImage, secondaryEpisodeImage, slug } = episode
-const [{ quote }] = quotes
+const [{ quote }] = quotes ?? [{ quote: null }]
 const { url: imageUrl } = secondaryEpisodeImage || primaryEpisodeImage
 
 const number = await getEpisodePositionInSeries(_id, series)
@@ -38,15 +38,18 @@ const cloudinaryUrl = imageUrl.replace('upload/', `upload/${cloudinaryParams}/`)
       </div>
 
       <div>
-        <div class="flex flex-nowrap transition-transform group-hover:-translate-x-full">
+        <div class={cn('flex flex-nowrap transition-transform', quote && 'group-hover:-translate-x-full')}>
           <h2
             class="text-md mt-auto w-full shrink-0 self-end px-4 font-display font-extrabold uppercase @3xs:text-lg @2xs:text-2xl @xs:text-3xl @sm:text-4xl">
             {title}
           </h2>
-          <blockquote
-            class="mt-auto w-full shrink-0 self-start px-4 text-xs font-medium italic @3xs:text-xs @2xs:text-sm">
-            &ldquo;{quote}&rdquo;
-          </blockquote>
+
+          {quote && (
+            <blockquote
+              class="mt-auto w-full shrink-0 self-start px-4 text-xs font-medium italic @3xs:text-xs @2xs:text-sm">
+              &ldquo;{quote}&rdquo;
+            </blockquote>
+          )}
         </div>
         <a
           class="sr-only block px-4 text-xs focus-visible:not-sr-only"
