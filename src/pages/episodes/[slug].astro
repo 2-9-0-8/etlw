@@ -21,9 +21,7 @@ if (!slug) {
 
 const episode: Episode = await getEpisodeBySlug(slug)
 
-if (!episode) {
-  return Astro.redirect('/404')
-}
+if (!episode) return Astro.redirect('/404')
 
 const { _id, title, quotes, series, primaryEpisodeImage, introduction, musicUrl, podcastUrl } = episode
 const [_, ...restQuotes] = quotes ?? []
