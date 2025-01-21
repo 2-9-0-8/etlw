@@ -25,6 +25,8 @@ export type Card = {
 
 export type Episode = {
   _id: string
+  _createdAt: string
+  _updatedAt: string
   previewOnly: boolean
   series: number
   title: string

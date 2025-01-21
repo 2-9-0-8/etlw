@@ -46,7 +46,7 @@ const number = await getEpisodePositionInSeries(_id, series)
         <p class="font-medium text-md mx-auto md:text-md prose text-off-white text-center pretty">{introduction}</p>
       </YSection>
 
-      <Image src={coverImageUrl} {width} {height} {alt} class="h-auto w-full" />
+      <Image src={coverImageUrl} {width} {height} alt={alt ?? ''} class="h-auto w-full" />
     </Wrapper>
   </div>
 
